@@ -18,9 +18,9 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @GetMapping("/schedule")
+    @GetMapping("/schedules")
     public List<Schedule> findAll(){
-        List <Schedule> scheduleList = scheduleService.findAll();
+        List<Schedule> scheduleList = scheduleService.findAll();
         return scheduleList;
     }
 

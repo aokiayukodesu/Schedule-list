@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.TimeZone;
 
 public class Schedule {
@@ -21,12 +22,12 @@ public class Schedule {
     private String title;
 
     @NotNull
-    private Date scheduleDate;
+    private LocalDate scheduleDate;
 
     @NotNull
     private Time scheduleTime;
 
-    public Schedule(int id, String title, Date scheduleDate, Time scheduleTime) {
+    public Schedule(int id, String title, LocalDate scheduleDate, Time scheduleTime) {
         this.id = id;
         this.title = title;
         this.scheduleDate = scheduleDate;
@@ -49,11 +50,11 @@ public class Schedule {
         this.title = title;
     }
 
-    public Date getScheduleDate() {
+    public LocalDate getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(Date scheduleDate) {
+    public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
