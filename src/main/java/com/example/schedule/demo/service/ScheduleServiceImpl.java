@@ -4,16 +4,15 @@ import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.form.CreateForm;
 import com.example.schedule.demo.mapper.ScheduleMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
 @Service
-public class ScheduleImpl implements ScheduleService {
+public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleMapper scheduleMapper;
 
-    public ScheduleImpl(ScheduleMapper scheduleMapper) {
+    public ScheduleServiceImpl(ScheduleMapper scheduleMapper) {
         this.scheduleMapper = scheduleMapper;
     }
 
@@ -23,6 +22,7 @@ public class ScheduleImpl implements ScheduleService {
     }
 
     @Override
-    public void createTable(CreateForm form) {scheduleMapper.createTable(form);
+    public void createTable(CreateForm form) {
+        scheduleMapper.createTable(form);
     }
 }

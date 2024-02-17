@@ -20,7 +20,7 @@ public class CreateForm {
     private String title;
 
     @NotNull(message = "日付を入力してください")
-    @Future(message = "未来日付を入力してください")
+    @Future(message = "過去の日付は入力できません")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate scheduleDate;
 
