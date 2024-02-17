@@ -15,8 +15,8 @@ import java.time.LocalTime;
 
 public class CreateForm {
 
-   @NotBlank(message = "文字を入力してください")
-   @Size(max = 100)
+    @NotBlank(message = "文字を入力してください")
+    @Size(max = 100)
     private String title;
 
     @NotNull(message = "日付を入力してください")
@@ -60,4 +60,3 @@ public class CreateForm {
     }
 
 }
-

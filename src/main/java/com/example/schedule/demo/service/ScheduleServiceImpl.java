@@ -27,7 +27,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public void createTable(CreateForm form) {
         scheduleMapper.createTable(form);
-        if (form == null) {
+        if (form.getTitle().equals("") & form.getScheduleDate().equals("") & form.getScheduleTime().equals("")) {
             throw new ValidationException("空文字は入力不可です");
         } else if (form.getScheduleDate().isBefore(LocalDate.now())) {
             throw new ValidationException("過去の日付は入力不可です");
