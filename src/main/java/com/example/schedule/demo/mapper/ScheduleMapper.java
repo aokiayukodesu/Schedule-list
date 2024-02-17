@@ -15,7 +15,7 @@ public interface ScheduleMapper {
     @Select("SELECT * FROM schedules")
     public List<Schedule> findAll();
 
-    @Insert("insert into schedules(title,scheduleDate,scheduleTime) Values (#{title},#{scheduleDate},#{scheduleTime})")
+    @Insert("insert into schedules(title,scheduleDate,scheduleTime) values (#{title},#{scheduleDate},#{scheduleTime})")
     public void createTable(CreateForm form);
 
 }
