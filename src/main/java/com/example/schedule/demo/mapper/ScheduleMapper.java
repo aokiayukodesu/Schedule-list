@@ -17,5 +17,4 @@ public interface ScheduleMapper {
 
     @Insert("insert into schedules(title,scheduleDate,scheduleTime) values (#{title},#{scheduleDate},#{scheduleTime})")
     public void createTable(CreateForm form);
-
 }
