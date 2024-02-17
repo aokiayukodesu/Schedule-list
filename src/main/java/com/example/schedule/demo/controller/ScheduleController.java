@@ -42,7 +42,7 @@ public class ScheduleController {
         } else {
             scheduleService.createTable(form);
             URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
-                    .path("/schedules/adds")
+                    .path("/schedules/{id}")
                     .build()
                     .toUri();
             return ResponseEntity.created(url).body("your date successfully created");
