@@ -42,7 +42,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedules")
-    public ResponseEntity<String> createTable(@RequestBody CreateForm form) {
+    public ResponseEntity<String> createTable(@RequestBody @Validated CreateForm form) {
         scheduleService.createTable(form);
         URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
                 .path("/schedules/{id}")
@@ -50,17 +50,4 @@ public class ScheduleController {
                 .toUri();
         return ResponseEntity.created(url).body("your date successfully created");
     }
-    
-    @ExceptionHandler(value = ValidationException.class)
-    public ResponseEntity<Map<String, String>> handleValidationException(
-            ValidationException e, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().toString(),
-                "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
-                "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
-                "message", e.getMessage(),
-                "path", request.getRequestURI());
-        return new ResponseEntity(body, HttpStatus.NOT_FOUND);
-    }
-
 }
