@@ -11,6 +11,8 @@ public interface ScheduleService {
 
     List<Schedule> findAll();
 
+    List<Schedule> findById(Integer id);
+
     void createTable(CreateForm form);
 
 }

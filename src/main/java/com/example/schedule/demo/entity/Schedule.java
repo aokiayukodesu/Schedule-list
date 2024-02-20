@@ -16,7 +16,7 @@ import java.time.LocalTime;
 import java.util.TimeZone;
 
 public class Schedule {
-    private int id;
+    private Integer id;
 
     private String title;
 
@@ -24,14 +24,14 @@ public class Schedule {
 
     private LocalTime scheduleTime;
 
-    public Schedule(int id, String title, LocalDate scheduleDate, LocalTime scheduleTime) {
+    public Schedule(Integer id, String title, LocalDate scheduleDate, LocalTime scheduleTime) {
         this.id = id;
         this.title = title;
         this.scheduleDate = scheduleDate;
         this.scheduleTime = scheduleTime;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -59,7 +59,7 @@ public class Schedule {
         return scheduleTime;
     }
 
-    public void setScheduleTime(LocalTime scheduleTime) {this.scheduleTime = scheduleTime;
+    public void setScheduleTime(LocalTime scheduleTime) {
+        this.scheduleTime = scheduleTime;
     }
-
 }

@@ -15,6 +15,8 @@ import java.time.LocalTime;
 
 public class CreateForm {
 
+    private Integer id;
+
     @NotBlank(message = "文字を入力してください")
     @Size(max = 100)
     private String title;
@@ -30,9 +32,14 @@ public class CreateForm {
     private LocalTime scheduleTime;
 
     public CreateForm(String title, LocalDate scheduleDate, LocalTime scheduleTime) {
+        this.id = null;
         this.title = title;
         this.scheduleDate = scheduleDate;
         this.scheduleTime = scheduleTime;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -58,5 +65,4 @@ public class CreateForm {
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
-
 }

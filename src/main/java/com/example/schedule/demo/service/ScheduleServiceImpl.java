@@ -25,6 +25,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public List<Schedule> findById(Integer id) {
+        return scheduleMapper.findById(id);
+    }
+
+    @Override
     public void createTable(CreateForm form) {
         scheduleMapper.createTable(form);
     }

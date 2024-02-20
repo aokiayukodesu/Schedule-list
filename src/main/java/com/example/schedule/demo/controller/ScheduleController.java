@@ -1,27 +1,21 @@
 package com.example.schedule.demo.controller;
 
+import com.example.schedule.demo.Response.UserResponse;
 import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.form.CreateForm;
 import com.example.schedule.demo.service.ScheduleService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ValidationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.ErrorResponseException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.BindException;
+import javax.xml.stream.Location;
 import java.net.URI;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -41,13 +35,18 @@ public class ScheduleController {
         return scheduleList;
     }
 
+    @GetMapping("schedules/{id}")
+    public List<Schedule> findById(@PathVariable Integer id) {
+        List<Schedule> scheduleList = scheduleService.findById(id);
+        return scheduleList;
+    }
+
     @PostMapping("/schedules")
-    public ResponseEntity<String> createTable(@RequestBody @Validated CreateForm form) {
+    public ResponseEntity<Map<String, String>> createTable(@RequestBody @Validated CreateForm form, UriComponentsBuilder uriBuilder) {
         scheduleService.createTable(form);
-        URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
-                .path("/schedules/{id}")
-                .build()
-                .toUri();
-        return ResponseEntity.created(url).body("your date successfully created");
+        URI location = UriComponentsBuilder.fromUriString("http://localhost:8080").path("/schedules/{id}").buildAndExpand(form.getId()).toUri();
+        Map<String, String> body = Map.of("massage", "your date successfully created");
+        return ResponseEntity.created(location).body(body);
     }
 }
+
