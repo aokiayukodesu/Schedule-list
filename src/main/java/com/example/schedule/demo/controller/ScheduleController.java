@@ -44,7 +44,7 @@ public class ScheduleController {
     @PostMapping("/schedules")
     public ResponseEntity<Map<String, String>> createTable(@RequestBody @Validated CreateForm form, UriComponentsBuilder uriBuilder) {
         Schedule schedule = scheduleService.createTable(form.getTitle(), form.getScheduleDate(), form.getScheduleTime());
-        URI location = UriComponentsBuilder.fromUriString("http://localhost:8080").path("/schedules/{id}").buildAndExpand(form.getId()).toUri();
+        URI location = UriComponentsBuilder.fromUriString("http://localhost:8080").path("/schedules/{id}").buildAndExpand(schedule.getId()).toUri();
         Map<String, String> body = Map.of("massage", "your date successfully created");
         return ResponseEntity.created(location).body(body);
     }
