@@ -22,5 +22,5 @@ public interface ScheduleMapper {
 
     @Insert("insert into schedules(title,scheduleDate,scheduleTime) values (#{title},#{scheduleDate},#{scheduleTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    public void createTable(CreateForm form);
+    public void createTable(Schedule schedule);
 }

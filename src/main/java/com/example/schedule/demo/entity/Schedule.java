@@ -31,6 +31,13 @@ public class Schedule {
         this.scheduleTime = scheduleTime;
     }
 
+    public Schedule(String title, LocalDate scheduleDate, LocalTime scheduleTime) {
+        this.id = null;
+        this.title = title;
+        this.scheduleDate = scheduleDate;
+        this.scheduleTime = scheduleTime;
+    }
+
     public Integer getId() {
         return id;
     }

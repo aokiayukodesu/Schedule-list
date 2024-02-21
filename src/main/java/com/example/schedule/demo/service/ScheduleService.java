@@ -5,6 +5,8 @@ import com.example.schedule.demo.form.CreateForm;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface ScheduleService {
@@ -13,6 +15,6 @@ public interface ScheduleService {
 
     List<Schedule> findById(Integer id);
 
-    void createTable(CreateForm form);
+    Schedule createTable(String title, LocalDate scheduleDate, LocalTime scheduleTime);
 
 }
