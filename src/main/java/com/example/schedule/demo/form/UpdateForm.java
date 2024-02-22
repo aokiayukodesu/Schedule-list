@@ -1,20 +1,18 @@
 package com.example.schedule.demo.form;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.schedule.demo.entity.Schedule;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class CreateForm {
-    
+@Data
+public class UpdateForm {
     private Integer id;
 
     @NotBlank(message = "文字を入力してください")
@@ -31,12 +29,14 @@ public class CreateForm {
     @DateTimeFormat(pattern = "hh:mm:ss")
     private LocalTime scheduleTime;
 
-    public CreateForm(String title, LocalDate scheduleDate, LocalTime scheduleTime) {
-        this.id = null;
-        this.title = title;
-        this.scheduleDate = scheduleDate;
-        this.scheduleTime = scheduleTime;
+    public Schedule toEntity() {
+        Schedule schedule = new Schedule(title, scheduleDate, scheduleTime);
+        schedule.setTitle(title);
+        schedule.setScheduleDate(scheduleDate);
+        schedule.setScheduleTime(scheduleTime);
+        return schedule;
     }
+
 
     public Integer getId() {
         return id;
@@ -65,4 +65,5 @@ public class CreateForm {
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
+
 }
