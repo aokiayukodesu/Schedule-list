@@ -2,6 +2,7 @@ package com.example.schedule.demo.service;
 
 import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.form.CreateForm;
+import com.example.schedule.demo.form.UpdateForm;
 import com.example.schedule.demo.mapper.ScheduleMapper;
 import jakarta.validation.ValidationException;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule schedule = new Schedule(title, scheduleDate, scheduleTime);
         scheduleMapper.createTable(schedule);
         return schedule;
+    }
+
+    @Override
+    public void updateList(Integer id, Schedule schedule) {
+        scheduleMapper.update(id, schedule);
     }
 }

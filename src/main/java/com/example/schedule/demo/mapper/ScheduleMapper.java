@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface ScheduleMapper {
     @Insert("insert into schedules(title,scheduleDate,scheduleTime) values (#{title},#{scheduleDate},#{scheduleTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     public void createTable(Schedule schedule);
+
+    @Update("update schedules set title = #{schedule.title}, scheduleDate = #{schedule.scheduleDate}, ScheduleTime = #{schedule.scheduleTime}  where id = #{id}")
+    public void update(@Param("id") Integer id, @Param("schedule") Schedule schedule);
 }
