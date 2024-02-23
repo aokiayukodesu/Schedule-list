@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +60,6 @@ public class ScheduleController {
         return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
 
-
     @PostMapping("/schedules")
     public ResponseEntity<Map<String, String>> createTable(@RequestBody @Validated CreateForm form, UriComponentsBuilder uriBuilder) {
         Schedule schedule = scheduleService.createTable(form.getTitle(), form.getScheduleDate(), form.getScheduleTime());
@@ -72,5 +74,12 @@ public class ScheduleController {
         Map<String, String> body = Map.of("massage", "update ok");
         return ResponseEntity.ok(body);
     }
-}
 
+    @DeleteMapping("schedules/delete/{id}")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id, String title, LocalDate scheduleDate, LocalTime scheduleTime) {
+        scheduleService.delete(id, new Schedule(title, scheduleDate, scheduleTime));
+        Map<String, String> body = Map.of("massage", "delete success");
+        return ResponseEntity.ok(body);
+    }
+
+}

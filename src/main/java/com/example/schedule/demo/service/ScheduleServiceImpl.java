@@ -46,4 +46,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void updateList(Integer id, Schedule schedule) {
         scheduleMapper.update(id, schedule);
     }
+
+    @Override
+    public void delete(Integer id, Schedule schedule) {
+        scheduleMapper.delete(id, schedule);
+    }
 }
