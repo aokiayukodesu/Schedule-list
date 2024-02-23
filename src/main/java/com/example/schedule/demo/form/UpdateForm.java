@@ -1,6 +1,7 @@
 package com.example.schedule.demo.form;
 
 import com.example.schedule.demo.entity.Schedule;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

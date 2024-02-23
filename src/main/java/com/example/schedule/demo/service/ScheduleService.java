@@ -8,15 +8,15 @@ import org.springframework.validation.BindingResult;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ScheduleService {
 
     List<Schedule> findAll();
 
-    List<Schedule> findById(Integer id);
+    Schedule findById(Integer id);
 
     Schedule createTable(String title, LocalDate scheduleDate, LocalTime scheduleTime);
 
     void updateList(Integer id, Schedule schedule);
-
 }

@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface ScheduleMapper {
@@ -19,7 +20,7 @@ public interface ScheduleMapper {
     public List<Schedule> findAll();
 
     @Select("SELECT * FROM schedules WHERE id = #{id}")
-    public List<Schedule> findById(Integer id);
+    public Optional<Schedule> findById(Integer id);
 
     @Insert("insert into schedules(title,scheduleDate,scheduleTime) values (#{title},#{scheduleDate},#{scheduleTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")

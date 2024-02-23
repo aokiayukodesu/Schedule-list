@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ValidationException extends RuntimeException {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<Map<String, String>> errors = new ArrayList<>();
@@ -31,6 +32,7 @@ public class ValidationException extends RuntimeException {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    
     public static final class ErrorResponse {
         private final HttpStatus status;
         private final String message;
@@ -54,4 +56,6 @@ public class ValidationException extends RuntimeException {
             return errors;
         }
     }
+
+
 }
