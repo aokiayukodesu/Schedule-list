@@ -1,6 +1,8 @@
 package com.example.schedule.demo.entity;
 
 
+import com.example.schedule.demo.validator.IdExistCheck;
+import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,14 +10,23 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.internal.constraintvalidators.hv.UUIDValidator;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.TimeZone;
 
 public class Schedule {
+
+    @IdExistCheck(message = "入力したidは存在しません")
     private Integer id;
 
     private String title;
@@ -69,4 +80,6 @@ public class Schedule {
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
+
 }
+

@@ -67,4 +67,12 @@ public class UpdateForm {
         this.scheduleTime = scheduleTime;
     }
 
+    @AssertTrue(message = "日付か時間が空白です")
+    public boolean ScheduleDateOrScheduleTimeNotBlank() {
+        if (scheduleDate == null || scheduleTime == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

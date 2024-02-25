@@ -48,17 +48,6 @@ public class ScheduleController {
         return scheduleService.findById(id);
     }
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
-            UserNotFoundException e, HttpServletRequest request) {
-        Map<String, String> body = Map.of(
-                "timestamp", ZonedDateTime.now().toString(),
-                "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
-                "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
-                "message", e.getMessage(),
-                "path", request.getRequestURI());
-        return new ResponseEntity(body, HttpStatus.NOT_FOUND);
-    }
 
     @PostMapping("/schedules")
     public ResponseEntity<Map<String, String>> createTable(@RequestBody @Validated CreateForm form, UriComponentsBuilder uriBuilder) {
@@ -81,5 +70,4 @@ public class ScheduleController {
         Map<String, String> body = Map.of("massage", "delete success");
         return ResponseEntity.ok(body);
     }
-
 }
