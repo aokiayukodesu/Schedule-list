@@ -22,6 +22,7 @@ import javax.xml.stream.Location;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @Controller
@@ -40,9 +41,8 @@ public class ScheduleController {
     }
 
     @GetMapping("schedules/{id}")
-    public List<Schedule> findById(@PathVariable Integer id) {
-        List<Schedule> scheduleList = scheduleService.findById(id);
-        return scheduleList;
+    public Schedule findById(@PathVariable Integer id) {
+        return scheduleService.findById(id);
     }
 
     @PostMapping("/schedules")
