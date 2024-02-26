@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -24,14 +25,15 @@ public class IdExistValidator implements ConstraintValidator<IdExistCheck, Optio
     }
 
     @Override
-    public boolean isValid(Optional<Integer> value, ConstraintValidatorContext context) {
-        if (value.isPresent()) {
+    public boolean isValid(Optional<Integer> id, ConstraintValidatorContext context) {
+        if (id.isPresent()) {
             return true;
+
         }
         try {
-            scheduleService.findById(value.get());
+            
             return true;
-        } catch (UserNotFoundException e) {
+        } catch (NoSuchElementException e) {
             return false;
         }
     }

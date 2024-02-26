@@ -21,6 +21,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.TimeZone;
 
@@ -48,6 +49,16 @@ public class Schedule {
         this.scheduleDate = scheduleDate;
         this.scheduleTime = scheduleTime;
     }
+
+    //public enum IdCheck {
+    //  id;
+    //return Optional.of()
+
+    //orElseThrow(() ->new
+
+    //IllegalArgumentException("有効なカラーを指定してください（RED, BLUE, GREENのいずれか）。"));
+    //}
+
 
     public Integer getId() {
         return id;
