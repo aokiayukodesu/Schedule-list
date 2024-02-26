@@ -47,6 +47,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void updateList(Integer id, Schedule schedule) {
-        scheduleMapper.update(id, schedule);
+        Optional<Schedule> scheduleId = this.scheduleMapper.findById(id);
+        if (scheduleId.isPresent()) {
+            scheduleMapper.update(id, schedule);
+        } else {
+            throw new UserNotFoundException("入力したidは存在しません");
+        }
     }
 }
