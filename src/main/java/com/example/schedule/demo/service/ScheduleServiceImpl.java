@@ -8,7 +8,6 @@ import com.example.schedule.demo.mapper.ScheduleMapper;
 import jakarta.validation.ValidationException;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
