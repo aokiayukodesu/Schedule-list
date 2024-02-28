@@ -66,7 +66,7 @@ public class UpdateForm {
         this.scheduleTime = scheduleTime;
     }
 
-    @AssertTrue(message = "日付か時間のどちらかが空白です。")
+    @AssertTrue(message = "scheduleDateとscheduleTimeは必須です")
     public boolean isScheduleDateOrScheduleTimeNotBlank() {
         if (scheduleDate == null || scheduleTime == null) {
             return false;
