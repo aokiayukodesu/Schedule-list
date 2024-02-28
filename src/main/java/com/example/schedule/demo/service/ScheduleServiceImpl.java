@@ -1,5 +1,6 @@
 package com.example.schedule.demo.service;
 
+import com.example.schedule.demo.Exception.ScheduleNotFoundException;
 import com.example.schedule.demo.Exception.UserNotFoundException;
 import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.form.CreateForm;
@@ -50,7 +51,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (scheduleId.isPresent()) {
             scheduleMapper.update(id, schedule);
         } else {
-            throw new UserNotFoundException("入力したidは存在しません");
+            throw new ScheduleNotFoundException("入力したidは存在しません");
         }
     }
 }
