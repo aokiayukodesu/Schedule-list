@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class ValidationException extends RuntimeException {
@@ -30,7 +31,7 @@ public class ValidationException extends RuntimeException {
                 new ErrorResponse(HttpStatus.BAD_REQUEST, "validation error", errors);
         return ResponseEntity.badRequest().body(errorResponse);
     }
-    
+
     @ExceptionHandler(value = ScheduleNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleScheduleNotFoundException(
             ScheduleNotFoundException e, HttpServletRequest request) {
@@ -43,6 +44,18 @@ public class ValidationException extends RuntimeException {
         return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(value = java.lang.NullPointerException.class)
+    public ResponseEntity<Map<String, String>> handleNullPointerException(
+            java.lang.NullPointerException e, HttpServletRequest request) {
+        Map<String, String> body = Map.of(
+                "timestamp", ZonedDateTime.now().toString(),
+                "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
+                "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                "message", e.getMessage(),
+                "path", request.getRequestURI());
+        return new ResponseEntity(body, HttpStatus.NOT_FOUND);
+    }
+    
     public static final class ErrorResponse {
         private final HttpStatus status;
         private final String message;

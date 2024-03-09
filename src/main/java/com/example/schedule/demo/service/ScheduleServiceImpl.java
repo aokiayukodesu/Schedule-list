@@ -48,6 +48,9 @@ public class ScheduleServiceImpl implements ScheduleService {
             scheduleMapper.update(id, schedule);
         } else {
             throw new ScheduleNotFoundException("入力したidは存在しません");
+            if (schedule.getScheduleDate() == null && schedule.getScheduleTime() == null) {
+                throw new NullPointerException("空欄は無効です");
+            }
         }
     }
-}
+

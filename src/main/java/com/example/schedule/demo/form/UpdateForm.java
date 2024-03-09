@@ -66,12 +66,12 @@ public class UpdateForm {
         this.scheduleTime = scheduleTime;
     }
 
-    @AssertTrue(message = "scheduleDateとscheduleTimeは必須です")
-    public boolean isScheduleDateOrScheduleTimeNotBlank() {
-        if (scheduleDate == null || scheduleTime == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    // @AssertTrue(message = "scheduleDateとscheduleTimeは必須です")
+    // public boolean isScheduleDateOrScheduleTimeNotBlank() {
+    //   if (scheduleDate == null || scheduleTime == null) {
+    //     return false;
+    // } else {
+    //   return true;
+    //  }
+    // }
 }
