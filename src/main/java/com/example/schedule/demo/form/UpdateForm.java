@@ -1,6 +1,7 @@
 package com.example.schedule.demo.form;
 
 import com.example.schedule.demo.entity.Schedule;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,13 +20,12 @@ public class UpdateForm {
     @Size(max = 100)
     private String title;
 
-    @NotNull(message = "日付を入力してください")
+
     @Future(message = "過去の日付は入力できません")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate scheduleDate;
 
 
-    @NotNull(message = "時間を入力してください")
     @DateTimeFormat(pattern = "hh:mm:ss")
     private LocalTime scheduleTime;
 
@@ -66,4 +66,12 @@ public class UpdateForm {
         this.scheduleTime = scheduleTime;
     }
 
+    @AssertTrue(message = "scheduleDateとscheduleTimeは必須です")
+    public boolean isScheduleDateOrScheduleTimeNotBlank() {
+        if (scheduleDate == null || scheduleTime == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
