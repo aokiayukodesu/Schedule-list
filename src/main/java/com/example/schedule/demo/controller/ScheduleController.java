@@ -1,17 +1,13 @@
 package com.example.schedule.demo.controller;
 
-import com.example.schedule.demo.Exception.UserNotFoundException;
 import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.form.CreateForm;
 import com.example.schedule.demo.form.UpdateForm;
 import com.example.schedule.demo.service.ScheduleService;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 

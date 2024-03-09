@@ -1,6 +1,6 @@
 package com.example.schedule.demo.service;
 
-import com.example.schedule.demo.Exception.UserNotFoundException;
+import com.example.schedule.demo.Exception.ScheduleNotFoundException;
 import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.mapper.ScheduleMapper;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -31,7 +30,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (scheduleList.isPresent()) {
             return scheduleList.get();
         } else {
-            throw new UserNotFoundException("入力したidは存在しません");
+            throw new ScheduleNotFoundException("入力したidは存在しません");
         }
     }
 
@@ -44,7 +43,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void updateList(Integer id, Schedule schedule) {
-        scheduleMapper.update(id, schedule);
+        Optional<Schedule> scheduleId = this.scheduleMapper.findById(id);
+        if (scheduleId.isPresent()) {
+            scheduleMapper.update(id, schedule);
+        } else {
+            throw new ScheduleNotFoundException("入力したidは存在しません");
+        }
     }
 
     @Override

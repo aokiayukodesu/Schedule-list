@@ -3,10 +3,7 @@ package com.example.schedule.demo.Exception;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -33,9 +30,9 @@ public class ValidationException extends RuntimeException {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
-            UserNotFoundException e, HttpServletRequest request) {
+    @ExceptionHandler(value = ScheduleNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleScheduleNotFoundException(
+            ScheduleNotFoundException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),
                 "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
