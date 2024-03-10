@@ -20,13 +20,11 @@ public class UpdateForm {
     @Size(max = 100)
     private String title;
 
-    @NotNull(message = "日付を入力してください")
     @Future(message = "過去の日付は入力できません")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate scheduleDate;
 
-
-    @NotNull(message = "時間を入力してください")
+    
     @DateTimeFormat(pattern = "hh:mm:ss")
     private LocalTime scheduleTime;
 
