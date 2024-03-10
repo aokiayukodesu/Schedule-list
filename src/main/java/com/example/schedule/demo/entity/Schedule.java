@@ -1,7 +1,5 @@
 package com.example.schedule.demo.entity;
 
-
-import com.example.schedule.demo.validator.IdExistCheck;
 import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.internal.constraintvalidators.hv.UUIDValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -26,7 +23,7 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 public class Schedule {
-    
+
     private Integer id;
 
     private String title;
@@ -80,6 +77,4 @@ public class Schedule {
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
-
 }
-
