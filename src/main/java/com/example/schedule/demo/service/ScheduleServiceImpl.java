@@ -53,6 +53,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void delete(Integer id, Schedule schedule) {
-        scheduleMapper.delete(id, schedule);
+        Optional<Schedule> scheduleId = this.scheduleMapper.findById(id);
+        if (scheduleId.isPresent()) {
+            scheduleMapper.delete(id, schedule);
+        } else {
+            throw new ScheduleNotFoundException("入力したidは存在しません");
+        }
     }
 }
