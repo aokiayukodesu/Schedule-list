@@ -26,8 +26,7 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 public class Schedule {
-
-    @IdExistCheck(message = "入力したidは存在しません")
+    
     private Integer id;
 
     private String title;
@@ -49,16 +48,6 @@ public class Schedule {
         this.scheduleDate = scheduleDate;
         this.scheduleTime = scheduleTime;
     }
-
-    //public enum IdCheck {
-    //  id;
-    //return Optional.of()
-
-    //orElseThrow(() ->new
-
-    //IllegalArgumentException("有効なカラーを指定してください（RED, BLUE, GREENのいずれか）。"));
-    //}
-
 
     public Integer getId() {
         return id;
