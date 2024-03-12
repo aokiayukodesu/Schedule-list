@@ -26,9 +26,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Schedule findById(Integer id) {
-        Optional<Schedule> scheduleOne = this.scheduleMapper.findById(id);
-        if (scheduleOne.isPresent()) {
-            return scheduleOne.get();
+        Optional<Schedule> schedule = this.scheduleMapper.findById(id);
+        if (schedule.isPresent()) {
+            return schedule.get();
         } else {
             throw new ScheduleNotFoundException("入力したidは存在しません");
         }
