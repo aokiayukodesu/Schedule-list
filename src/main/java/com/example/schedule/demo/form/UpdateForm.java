@@ -19,6 +19,8 @@ public class UpdateForm {
     @NotBlank(message = "文字を入力してください")
     @Size(max = 100)
     private String title;
+
+
     @Future(message = "過去の日付は入力できません")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate scheduleDate;
@@ -73,3 +75,4 @@ public class UpdateForm {
         }
     }
 }
+
