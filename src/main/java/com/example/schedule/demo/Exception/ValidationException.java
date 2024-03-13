@@ -3,9 +3,7 @@ package com.example.schedule.demo.Exception;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,6 +15,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ValidationException extends RuntimeException {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<Map<String, String>> errors = new ArrayList<>();
@@ -30,7 +29,7 @@ public class ValidationException extends RuntimeException {
                 new ErrorResponse(HttpStatus.BAD_REQUEST, "validation error", errors);
         return ResponseEntity.badRequest().body(errorResponse);
     }
-    
+
     @ExceptionHandler(value = ScheduleNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleScheduleNotFoundException(
             ScheduleNotFoundException e, HttpServletRequest request) {
@@ -42,6 +41,7 @@ public class ValidationException extends RuntimeException {
                 "path", request.getRequestURI());
         return new ResponseEntity(body, HttpStatus.NOT_FOUND);
     }
+
 
     public static final class ErrorResponse {
         private final HttpStatus status;
@@ -66,4 +66,6 @@ public class ValidationException extends RuntimeException {
             return errors;
         }
     }
+
+
 }

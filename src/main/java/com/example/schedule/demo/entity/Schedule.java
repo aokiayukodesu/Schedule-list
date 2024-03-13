@@ -1,6 +1,6 @@
 package com.example.schedule.demo.entity;
 
-
+import jakarta.validation.Constraint;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,13 +9,21 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.TimeZone;
 
 public class Schedule {
+
     private Integer id;
 
     private String title;

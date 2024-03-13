@@ -2,6 +2,7 @@ package com.example.schedule.demo.mapper;
 
 import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.form.CreateForm;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -28,4 +29,7 @@ public interface ScheduleMapper {
 
     @Update("update schedules set title = #{schedule.title}, scheduleDate = #{schedule.scheduleDate}, ScheduleTime = #{schedule.scheduleTime}  where id = #{id}")
     public void update(@Param("id") Integer id, @Param("schedule") Schedule schedule);
+
+    @Delete("delete from schedules where id = #{id}")
+    public void delete(@Param("id") Integer id, @Param("schedule") Schedule schedule);
 }

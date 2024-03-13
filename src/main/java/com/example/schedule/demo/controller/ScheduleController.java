@@ -1,16 +1,15 @@
 package com.example.schedule.demo.controller;
 
-import com.example.schedule.demo.Response.UserResponse;
 import com.example.schedule.demo.entity.Schedule;
 import com.example.schedule.demo.form.CreateForm;
 import com.example.schedule.demo.form.UpdateForm;
 import com.example.schedule.demo.service.ScheduleService;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.xml.stream.Location;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,6 +45,7 @@ public class ScheduleController {
         return scheduleService.findById(id);
     }
 
+
     @PostMapping("/schedules")
     public ResponseEntity<Map<String, String>> createTable(@RequestBody @Validated CreateForm form, UriComponentsBuilder uriBuilder) {
         Schedule schedule = scheduleService.createTable(form.getTitle(), form.getScheduleDate(), form.getScheduleTime());
@@ -57,6 +58,13 @@ public class ScheduleController {
     public ResponseEntity<Map<String, String>> update(@PathVariable Integer id, @RequestBody @Validated UpdateForm form) {
         scheduleService.updateList(id, form.toEntity());
         Map<String, String> body = Map.of("massage", "update ok");
+        return ResponseEntity.ok(body);
+    }
+
+    @DeleteMapping("schedules/delete/{id}")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id, String title, LocalDate scheduleDate, LocalTime scheduleTime) {
+        scheduleService.delete(id, new Schedule(title, scheduleDate, scheduleTime));
+        Map<String, String> body = Map.of("massage", "delete success");
         return ResponseEntity.ok(body);
     }
 }
