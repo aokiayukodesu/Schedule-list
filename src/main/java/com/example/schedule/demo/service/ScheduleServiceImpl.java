@@ -51,7 +51,6 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
     }
 
-
     @Override
     public void delete(Integer id, Schedule schedule) {
         Optional<Schedule> scheduleId = this.scheduleMapper.findById(id);
