@@ -19,6 +19,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TimeZone;
 
@@ -44,6 +45,19 @@ public class Schedule {
         this.title = title;
         this.scheduleDate = scheduleDate;
         this.scheduleTime = scheduleTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Schedule schedule = (Schedule) o;
+        return Objects.equals(id, schedule.id) && Objects.equals(title, schedule.title) && Objects.equals(scheduleDate, schedule.scheduleDate) && Objects.equals(scheduleTime, schedule.scheduleTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, scheduleDate, scheduleTime);
     }
 
     public Integer getId() {
@@ -77,4 +91,6 @@ public class Schedule {
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
+
+
 }
