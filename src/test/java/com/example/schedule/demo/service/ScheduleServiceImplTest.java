@@ -38,15 +38,17 @@ class ScheduleServiceImplTest {
     ScheduleMapper scheduleMapper;
 
     @Test
-    void findAllメソッドで1件取得できる() {
-        when(scheduleMapper.findAll()).thenReturn(List.of(new Schedule(1, "予防接種", LocalDate.of(2024, 11, 10), LocalTime.of(14, 00))));
+    void findAllメソッドで全てのレコードを取得できる() {
+        when(scheduleMapper.findAll()).thenReturn(List.of(new Schedule(1, "予防接種", LocalDate.of(2024, 4, 20), LocalTime.of(14, 00)),
+                (new Schedule(2, "おでかけ", LocalDate.of(2024, 05, 10), LocalTime.of(14, 00))),
+                (new Schedule(3, "義母襲来", LocalDate.of(2024, 6, 15), LocalTime.of(14, 00)))));
 
         List<Schedule> schedule = scheduleServiceImpl.findAll();
-        assertEquals(1, schedule.size());
+        assertEquals(3, schedule.size());
     }
 
     @Test
-    public void 指定したidの情報が取得できる() throws ScheduleNotFoundException {
+    public void 指定したidの情報が存在した場合に取得できる() throws ScheduleNotFoundException {
         doReturn(Optional.of(new Schedule(1, "予防接種", LocalDate.of(2024, 11, 10), LocalTime.of(14, 00)))).when(scheduleMapper).findById(1);
 
         Schedule actual = scheduleServiceImpl.findById(1);
