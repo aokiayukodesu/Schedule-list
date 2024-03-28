@@ -56,11 +56,11 @@ class ScheduleServiceImplTest {
 
     @Test
     void 指定したidが存在しない場合ScheduleNotFoundExceptionを返す() throws ScheduleNotFoundException {
-        when(scheduleMapper.findById(100)).thenThrow(new ScheduleNotFoundException("指定したidは存在しません"));
+        when(scheduleMapper.findById(100)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> scheduleServiceImpl.findById(100))
                 .isInstanceOfSatisfying(ScheduleNotFoundException.class, (e) -> {
-                    assertThat(e.getMessage()).isEqualTo("指定したidは存在しません");
+                    assertThat(e.getMessage()).isEqualTo("入力したidは存在しません");
                 });
     }
 }
