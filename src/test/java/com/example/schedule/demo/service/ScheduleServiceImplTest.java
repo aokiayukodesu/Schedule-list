@@ -41,7 +41,7 @@ class ScheduleServiceImplTest {
     void findAllメソッドで全てのレコードを取得できる() {
         when(scheduleMapper.findAll()).thenReturn(List.of(new Schedule(1, "予防接種", LocalDate.of(2024, 4, 20), LocalTime.of(14, 00)),
                 (new Schedule(2, "おでかけ", LocalDate.of(2024, 05, 10), LocalTime.of(14, 00))),
-                (new Schedule(3, "義母襲来", LocalDate.of(2024, 6, 15), LocalTime.of(14, 00)))));
+                (new Schedule(3, "義母襲来", LocalDate.of(2024, 06, 15), LocalTime.of(14, 00)))));
 
         List<Schedule> schedule = scheduleServiceImpl.findAll();
         assertEquals(3, schedule.size());
