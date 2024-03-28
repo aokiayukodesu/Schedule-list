@@ -49,7 +49,7 @@ class ScheduleServiceImplTest {
 
     @Test
     public void 指定したidの情報が存在した場合に取得できる() throws ScheduleNotFoundException {
-        doReturn(Optional.of(new Schedule(1, "予防接種", LocalDate.of(2024, 11, 10), LocalTime.of(14, 00)))).when(scheduleMapper).findById(1);
+        doReturn(Optional.of(new Schedule(1, "予防接種", LocalDate.of(2024, 11, 15), LocalTime.of(14, 00)))).when(scheduleMapper).findById(1);
 
         Schedule actual = scheduleServiceImpl.findById(1);
         assertThat(actual).isEqualTo(new Schedule(1, "予防接種", LocalDate.of(2024, 11, 10), LocalTime.of(14, 00)));
