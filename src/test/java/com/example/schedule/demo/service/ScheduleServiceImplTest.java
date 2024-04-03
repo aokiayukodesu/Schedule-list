@@ -71,4 +71,12 @@ class ScheduleServiceImplTest {
                     assertThat(e.getMessage()).isEqualTo("入力したidは存在しません");
                 });
     }
+
+    @Test
+    void scheduleに渡した値が登録されていること() {
+        Schedule schedule = new Schedule("ストレンジャーシングス配信日", LocalDate.of(2024, 05, 27), LocalTime.of(12, 00));
+
+        Schedule createSchedule = scheduleServiceImpl.createTable("ストレンジャーシングス配信日", LocalDate.of(2024, 05, 27), LocalTime.of(12, 00));
+        assertThat(createSchedule).isEqualTo(schedule);
+    }
 }
