@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -75,6 +76,7 @@ class ScheduleServiceImplTest {
     @Test
     void scheduleに渡した値が登録されていること() {
         Schedule schedule = new Schedule("ストレンジャーシングス配信日", LocalDate.of(2024, 05, 27), LocalTime.of(12, 00));
+        doNothing().when(scheduleMapper).createTable(schedule);
 
         Schedule createSchedule = scheduleServiceImpl.createTable("ストレンジャーシングス配信日", LocalDate.of(2024, 05, 27), LocalTime.of(12, 00));
         assertThat(createSchedule).isEqualTo(schedule);
