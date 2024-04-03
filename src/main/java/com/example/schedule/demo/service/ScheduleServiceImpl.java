@@ -25,7 +25,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule findById(Integer id) {
+    public Schedule findById(Integer id) throws ScheduleNotFoundException {
         Optional<Schedule> schedule = this.scheduleMapper.findById(id);
         if (schedule.isPresent()) {
             return schedule.get();
@@ -50,7 +50,6 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new ScheduleNotFoundException("入力したidは存在しません");
         }
     }
-
 
     @Override
     public void delete(Integer id, Schedule schedule) {
