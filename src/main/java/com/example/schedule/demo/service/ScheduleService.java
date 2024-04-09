@@ -18,7 +18,7 @@ public interface ScheduleService {
 
     Schedule createTable(String title, LocalDate scheduleDate, LocalTime scheduleTime);
 
-    Schedule updateList(Integer id, Schedule schedule);
+    Schedule updateSchedule(Integer id, Schedule schedule);
 
     void delete(Integer id, Schedule schedule);
 }

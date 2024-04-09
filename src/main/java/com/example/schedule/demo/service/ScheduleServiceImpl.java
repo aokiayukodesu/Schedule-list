@@ -42,7 +42,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule updateList(Integer id, Schedule schedule) throws ScheduleNotFoundException {
+    public Schedule updateSchedule(Integer id, Schedule schedule) throws ScheduleNotFoundException {
         Optional<Schedule> findByScheduleId = this.scheduleMapper.findById(id);
         if (findByScheduleId.isPresent()) {
             scheduleMapper.update(id, schedule);

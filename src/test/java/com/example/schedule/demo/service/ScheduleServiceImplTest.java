@@ -87,10 +87,9 @@ class ScheduleServiceImplTest {
         Schedule requestedSchedule = new Schedule("一泊母子旅行", LocalDate.of(2024, 04, 23), LocalTime.of(12, 00));
         doReturn(Optional.of(new Schedule(1, "予防接種", LocalDate.of(2024, 11, 15), LocalTime.of(14, 00)))).when(scheduleMapper).findById(1);
         doNothing().when(scheduleMapper).update(1, requestedSchedule);
-        
-        Schedule updateList = scheduleServiceImpl.updateList(1, new Schedule("一泊母子旅行", LocalDate.of(2024, 04, 23), LocalTime.of(12, 00)));
 
-        assertThat(updateList).isEqualTo(requestedSchedule);
+        Schedule actual = scheduleServiceImpl.updateSchedule(1, new Schedule("一泊母子旅行", LocalDate.of(2024, 04, 23), LocalTime.of(12, 00)));
+        assertThat(actual).isEqualTo(requestedSchedule);
     }
 }
 
