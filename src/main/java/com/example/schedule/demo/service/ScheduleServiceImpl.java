@@ -43,8 +43,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Schedule updateSchedule(Integer id, Schedule schedule) throws ScheduleNotFoundException {
-        Optional<Schedule> findByScheduleId = this.scheduleMapper.findById(id);
-        if (findByScheduleId.isPresent()) {
+        Optional<Schedule> existedSchedule = this.scheduleMapper.findById(id);
+        if (existedSchedule.isPresent()) {
             scheduleMapper.update(id, schedule);
         } else {
             throw new ScheduleNotFoundException("入力したidは存在しません");
