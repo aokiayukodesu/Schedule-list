@@ -81,4 +81,15 @@ class ScheduleServiceImplTest {
         Schedule createSchedule = scheduleServiceImpl.createTable("ストレンジャーシングス配信日", LocalDate.of(2024, 05, 27), LocalTime.of(12, 00));
         assertThat(createSchedule).isEqualTo(schedule);
     }
+
+    @Test
+    void 指定したidが存在した場合そのidの情報を変更する() throws ScheduleNotFoundException {
+        Schedule requestedSchedule = new Schedule("一泊母子旅行", LocalDate.of(2024, 04, 23), LocalTime.of(12, 00));
+        doReturn(Optional.of(new Schedule(1, "予防接種", LocalDate.of(2024, 11, 15), LocalTime.of(14, 00)))).when(scheduleMapper).findById(1);
+        doNothing().when(scheduleMapper).update(1, requestedSchedule);
+
+        Schedule actual = scheduleServiceImpl.updateSchedule(1, new Schedule("一泊母子旅行", LocalDate.of(2024, 04, 23), LocalTime.of(12, 00)));
+        assertThat(actual).isEqualTo(requestedSchedule);
+    }
 }
+

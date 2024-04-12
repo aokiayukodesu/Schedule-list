@@ -56,7 +56,7 @@ public class ScheduleController {
 
     @PutMapping("schedules/edit/{id}")
     public ResponseEntity<Map<String, String>> update(@PathVariable Integer id, @RequestBody @Validated UpdateForm form) {
-        scheduleService.updateList(id, form.toEntity());
+        scheduleService.updateSchedule(id, form.toEntity());
         Map<String, String> body = Map.of("massage", "update ok");
         return ResponseEntity.ok(body);
     }
