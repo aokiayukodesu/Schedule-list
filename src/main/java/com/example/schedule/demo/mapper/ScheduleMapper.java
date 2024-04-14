@@ -31,5 +31,5 @@ public interface ScheduleMapper {
     public void update(@Param("id") Integer id, @Param("schedule") Schedule schedule);
 
     @Delete("delete from schedules where id = #{id}")
-    public int delete(@Param("id") Integer id, @Param("schedule") Schedule schedule);
+    public void delete(@Param("id") Integer id, @Param("schedule") Schedule schedule);
 }
