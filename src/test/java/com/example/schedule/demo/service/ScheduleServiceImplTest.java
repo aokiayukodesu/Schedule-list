@@ -93,6 +93,18 @@ class ScheduleServiceImplTest {
     }
 
     @Test
+    void updateリクエストで指定したidが存在しない場合ScheduleNotFoundExceptionを返す() throws ScheduleNotFoundException {
+        Schedule requestedSchedule = new Schedule("一泊母子旅行", LocalDate.of(2024, 04, 23), LocalTime.of(12, 00));
+        when(scheduleMapper.findById(100)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> scheduleServiceImpl.updateSchedule(100, requestedSchedule))
+                .isInstanceOfSatisfying(ScheduleNotFoundException.class, (e) -> {
+                    assertThat(e.getMessage()).isEqualTo("入力したidは存在しません");
+                });
+    }
+
+
+    @Test
     void 指定したidが存在した場合そのidと情報を削除する() throws ScheduleNotFoundException {
         Schedule existingSchedule = new Schedule(1, "予防接種", LocalDate.of(2024, 11, 15), LocalTime.of(14, 00));
         doReturn(Optional.of(existingSchedule)).when(scheduleMapper).findById(1);
