@@ -102,5 +102,15 @@ class ScheduleServiceImplTest {
         verify(scheduleMapper, times(1)).delete(1, existingSchedule);
     }
 
+    @Test
+    void deleteリクエストで指定したidが存在しない場合ScheduleNotFoundExceptionを返す() {
+        Schedule existingSchedule = new Schedule(1, "予防接種", LocalDate.of(2024, 11, 15), LocalTime.of(14, 00));
+        when(scheduleMapper.findById(100)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> scheduleServiceImpl.delete(100, existingSchedule))
+                .isInstanceOfSatisfying(ScheduleNotFoundException.class, (e) -> {
+                    assertThat(e.getMessage()).isEqualTo("入力したidは存在しません");
+                });
+    }
 }
 
