@@ -43,8 +43,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Schedule updateSchedule(Integer id, Schedule schedule) throws ScheduleNotFoundException {
-        Optional<Schedule> existedSchedule = this.scheduleMapper.findById(id);
-        if (existedSchedule.isPresent()) {
+        Optional<Schedule> existingSchedule = this.scheduleMapper.findById(id);
+        if (existingSchedule.isPresent()) {
             scheduleMapper.update(id, schedule);
         } else {
             throw new ScheduleNotFoundException("入力したidは存在しません");
@@ -54,8 +54,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void delete(Integer id, Schedule schedule) {
-        Optional<Schedule> existedSchedule = this.scheduleMapper.findById(id);
-        if (existedSchedule.isPresent()) {
+        Optional<Schedule> existingSchedule = this.scheduleMapper.findById(id);
+        if (existingSchedule.isPresent()) {
             scheduleMapper.delete(id, schedule);
         } else {
             throw new ScheduleNotFoundException("入力したidは存在しません");
