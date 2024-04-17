@@ -54,3 +54,4 @@ class ScheduleControllerTest {
         verify(scheduleServiceImpl).findAll();
     }
 }
+
