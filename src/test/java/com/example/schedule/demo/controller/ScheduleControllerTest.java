@@ -18,8 +18,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,5 +56,30 @@ class ScheduleControllerTest {
 
         verify(scheduleServiceImpl).findAll();
     }
+
+    @Test
+    void findByIdで指定されたidが存在した場合に情報を返す() throws Exception {
+        Schedule schedule = new Schedule(1, "予防接種", LocalDate.of(2024, 04, 20), LocalTime.of(14, 00));
+        when(scheduleServiceImpl.findById(1)).thenReturn(schedule);
+
+        mockMvc.perform(get("/schedules/{id}", 1))
+                .andExpect(status().is(200))
+                .equals(schedule);
+
+        verify(scheduleServiceImpl).findById(1);
+    }
+
+    @Test
+    void 指定したidが存在しない場合例外を投げる() throws Exception {
+        when(scheduleServiceImpl.findById(100)).thenThrow(new ScheduleNotFoundException("入力したidは存在しません"));
+
+        mockMvc.perform(get("/schedules/{id}", 100))
+                .andExpect(status().is(404))
+                .equals(new ScheduleNotFoundException("入力したidは存在しません"));
+
+
+        verify(scheduleServiceImpl).findById(100);
+    }
+
 }
 
