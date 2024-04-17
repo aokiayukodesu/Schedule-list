@@ -77,9 +77,7 @@ class ScheduleControllerTest {
                 .andExpect(status().is(404))
                 .equals(new ScheduleNotFoundException("入力したidは存在しません"));
 
-
         verify(scheduleServiceImpl).findById(100);
     }
-
 }
 
