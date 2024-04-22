@@ -12,9 +12,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class CreateForm {
-    
+
     private Integer id;
 
     @NotBlank(message = "文字を入力してください")
@@ -64,5 +65,17 @@ public class CreateForm {
 
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CreateForm that)) return false;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(scheduleDate, that.scheduleDate) && Objects.equals(scheduleTime, that.scheduleTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, scheduleDate, scheduleTime);
     }
 }

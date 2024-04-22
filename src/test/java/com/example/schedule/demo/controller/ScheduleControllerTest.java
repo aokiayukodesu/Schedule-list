@@ -2,31 +2,53 @@ package com.example.schedule.demo.controller;
 
 import com.example.schedule.demo.Exception.ScheduleNotFoundException;
 import com.example.schedule.demo.entity.Schedule;
+import com.example.schedule.demo.form.CreateForm;
+import com.example.schedule.demo.mapper.ScheduleMapper;
 import com.example.schedule.demo.service.ScheduleService;
 import com.example.schedule.demo.service.ScheduleServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(ScheduleController.class)
@@ -41,6 +63,9 @@ class ScheduleControllerTest {
 
     @MockBean
     ScheduleServiceImpl scheduleServiceImpl;
+
+    @Mock
+    ScheduleMapper scheduleMapper;
 
 
     @Test
@@ -78,6 +103,36 @@ class ScheduleControllerTest {
                 .equals(new ScheduleNotFoundException("入力したidは存在しません"));
 
         verify(scheduleServiceImpl).findById(100);
+    }
+
+    @Test
+    void 指定したパスで情報が登録されるか() throws Exception {
+        Schedule schedule = new Schedule(1, "予防接種", LocalDate.of(2024, 04, 25), LocalTime.of(14, 00));
+        CreateForm form = new CreateForm("予防接種", LocalDate.of(2024, 04, 25), LocalTime.of(14, 00));
+        doReturn(schedule).when(scheduleServiceImpl).createTable(form.getTitle(), form.getScheduleDate(), form.getScheduleTime());
+
+
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/schedules").contentType(MediaType.APPLICATION_JSON).content(
+                        """
+                                {
+                                "id":1,
+                                "title":"予防接種",
+                                "scheduleDate":"2024-04-25",
+                                "scheduleTime":"14:00:00"
+                                }
+                                                               
+                                """
+                ))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        JSONAssert.assertEquals("""
+                { 
+                "massage" : "your date successfully created" 
+                } 
+                """, response, JSONCompareMode.STRICT);
+
+        verify(scheduleServiceImpl).createTable(form.getTitle(), form.getScheduleDate(), form.getScheduleTime());
+
     }
 }
 

@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Data
 public class UpdateForm {
@@ -73,6 +74,18 @@ public class UpdateForm {
         } else {
             return true;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UpdateForm that)) return false;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(scheduleDate, that.scheduleDate) && Objects.equals(scheduleTime, that.scheduleTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, scheduleDate, scheduleTime);
     }
 }
 
