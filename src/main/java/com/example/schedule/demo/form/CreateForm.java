@@ -66,5 +66,6 @@ public class CreateForm {
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
-    
+
 }
+
