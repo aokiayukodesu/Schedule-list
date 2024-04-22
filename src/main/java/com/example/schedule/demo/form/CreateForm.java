@@ -1,20 +1,19 @@
 package com.example.schedule.demo.form;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
 public class CreateForm {
-    
+
     private Integer id;
 
     @NotBlank(message = "文字を入力してください")
@@ -65,4 +64,6 @@ public class CreateForm {
     public void setScheduleTime(LocalTime scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
+
 }
+
