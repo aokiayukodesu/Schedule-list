@@ -189,5 +189,31 @@ class ScheduleControllerTest {
 
         verify(scheduleServiceImpl).updateSchedule(100, updateScheduleTime);
     }
+
+
+    @Test
+    void 指定したidでデータが削除できること() throws Exception {
+        Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
+        Schedule deleteSchedule = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
+        doNothing().when(scheduleServiceImpl).delete(1, deleteSchedule);
+
+        String response = mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(
+                        """
+                                {
+                                "id":1,
+                                "title":"歯医者",
+                                "scheduleDate":"2024-06-25",
+                                "scheduleTime":"14:00:00"
+                                }                               
+                                """
+                ))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        JSONAssert.assertEquals("""
+                { 
+                "massage" : "delete success"
+                } 
+                """, response, JSONCompareMode.STRICT);
+    }
 }
 
