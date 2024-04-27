@@ -107,7 +107,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    void 指定したパスで情報が登録されるか() throws Exception {
+    void 指定したパスで情報が登録されること() throws Exception {
         Schedule schedule = new Schedule(1, "予防接種", LocalDate.of(2024, 05, 25), LocalTime.of(14, 00));
         CreateForm form = new CreateForm("予防接種", LocalDate.of(2024, 05, 25), LocalTime.of(14, 00));
         doReturn(schedule).when(scheduleServiceImpl).createTable(form.getTitle(), form.getScheduleDate(), form.getScheduleTime());
@@ -169,7 +169,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    void updateメソッドで存在しないidを指定した場合にScheduleNotFoundExceptionを投げるか() throws Exception {
+    void updateメソッドで存在しないidを指定した場合にScheduleNotFoundExceptionを投げること() throws Exception {
         Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         Schedule updateScheduleTime = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(16, 00));
         when(scheduleServiceImpl.updateSchedule(100, updateScheduleTime)).thenThrow(new ScheduleNotFoundException("入力したidは存在しません"));
