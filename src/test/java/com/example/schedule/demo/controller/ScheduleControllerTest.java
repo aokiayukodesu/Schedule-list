@@ -137,7 +137,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    void 指定したパスとidで情報が変更できるか() throws Exception {
+    void 指定したidでデータが変更できること() throws Exception {
         Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         Schedule updateScheduleTime = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(16, 00));
         when(scheduleServiceImpl.findById(1)).thenReturn(exsintingSchedule);
