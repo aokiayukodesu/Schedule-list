@@ -49,6 +49,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(MockitoExtension.class)
@@ -64,10 +65,6 @@ class ScheduleControllerTest {
 
     @MockBean
     ScheduleServiceImpl scheduleServiceImpl;
-
-    @Mock
-    ScheduleMapper scheduleMapper;
-
 
     @Test
     void findAllメソッドで全てのレコードを取得できる() throws Exception {
@@ -215,5 +212,27 @@ class ScheduleControllerTest {
                 } 
                 """, response, JSONCompareMode.STRICT);
     }
+
+    @Test
+    void 指定したidが存在しない場合例外を投げること() throws Exception {
+        Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
+        Schedule deleteSchedule = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
+        doThrow(new ScheduleNotFoundException("入力したidは存在しません")).when(scheduleServiceImpl).delete(100, deleteSchedule);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 100).contentType(MediaType.APPLICATION_JSON).content(
+                        """
+                                {
+                                "id":100,
+                                "title":"歯医者",
+                                "scheduleDate":"2024-06-25",
+                                "scheduleTime":"14:00:00"
+                                }     
+                                """
+                ))
+                .andExpect(status().is(404))
+                .equals(new ScheduleNotFoundException("入力したidは存在しません"));
+
+    }
+
 }
 
