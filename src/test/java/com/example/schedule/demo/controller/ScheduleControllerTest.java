@@ -135,12 +135,8 @@ class ScheduleControllerTest {
 
     @Test
     void 指定したidでデータが変更できること() throws Exception {
-        Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         Schedule updateScheduleTime = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(16, 00));
-        when(scheduleServiceImpl.findById(1)).thenReturn(exsintingSchedule);
         Schedule schedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(16, 00));
-
-
         doReturn(schedule).when(scheduleServiceImpl).updateSchedule(1, updateScheduleTime);
 
         String response = mockMvc.perform(MockMvcRequestBuilders.put("/schedules/edit/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(
@@ -190,7 +186,7 @@ class ScheduleControllerTest {
 
     @Test
     void 指定したidでデータが削除できること() throws Exception {
-        Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
+        //Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         Schedule deleteSchedule = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         doNothing().when(scheduleServiceImpl).delete(1);
 
@@ -233,6 +229,5 @@ class ScheduleControllerTest {
                 .equals(new ScheduleNotFoundException("入力したidは存在しません"));
 
     }
-
 }
 
