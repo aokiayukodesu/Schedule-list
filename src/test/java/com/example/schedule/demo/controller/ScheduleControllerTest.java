@@ -185,7 +185,6 @@ class ScheduleControllerTest {
 
     @Test
     void 指定したidでデータが削除できること() throws Exception {
-        Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         doNothing().when(scheduleServiceImpl).delete(1);
 
         String response = mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(
