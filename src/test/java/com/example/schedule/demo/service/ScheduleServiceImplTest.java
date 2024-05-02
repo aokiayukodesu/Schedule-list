@@ -108,10 +108,10 @@ class ScheduleServiceImplTest {
     void 指定したidが存在した場合そのidと情報を削除する() throws ScheduleNotFoundException {
         Schedule existingSchedule = new Schedule(1, "予防接種", LocalDate.of(2024, 11, 15), LocalTime.of(14, 00));
         doReturn(Optional.of(existingSchedule)).when(scheduleMapper).findById(1);
-        doNothing().when(scheduleMapper).delete(1, existingSchedule);
+        doNothing().when(scheduleMapper).delete(1);
 
-        scheduleServiceImpl.delete(1, existingSchedule);
-        verify(scheduleMapper, times(1)).delete(1, existingSchedule);
+        scheduleServiceImpl.delete(1);
+        verify(scheduleMapper, times(1)).delete(1);
     }
 
     @Test
@@ -119,7 +119,7 @@ class ScheduleServiceImplTest {
         Schedule existingSchedule = new Schedule(1, "予防接種", LocalDate.of(2024, 11, 15), LocalTime.of(14, 00));
         when(scheduleMapper.findById(100)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> scheduleServiceImpl.delete(100, existingSchedule))
+        assertThatThrownBy(() -> scheduleServiceImpl.delete(100))
                 .isInstanceOfSatisfying(ScheduleNotFoundException.class, (e) -> {
                     assertThat(e.getMessage()).isEqualTo("入力したidは存在しません");
                 });

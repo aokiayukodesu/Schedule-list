@@ -20,5 +20,5 @@ public interface ScheduleService {
 
     Schedule updateSchedule(Integer id, Schedule schedule);
 
-    void delete(Integer id, Schedule schedule);
+    void delete(Integer id);
 }
