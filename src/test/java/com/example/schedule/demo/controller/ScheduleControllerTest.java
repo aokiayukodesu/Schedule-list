@@ -187,16 +187,7 @@ class ScheduleControllerTest {
     void 指定したidでデータが削除できること() throws Exception {
         doNothing().when(scheduleServiceImpl).delete(1);
 
-        String response = mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(
-                        """
-                                {
-                                "id":1,
-                                "title":"歯医者",
-                                "scheduleDate":"2024-06-25",
-                                "scheduleTime":"14:00:00"
-                                }                               
-                                """
-                ))
+        String response = mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 1))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         JSONAssert.assertEquals("""
@@ -210,16 +201,7 @@ class ScheduleControllerTest {
     void 指定したidが存在しない場合例外を投げること() throws Exception {
         doThrow(new ScheduleNotFoundException("入力したidは存在しません")).when(scheduleServiceImpl).delete(100);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 100).contentType(MediaType.APPLICATION_JSON).content(
-                        """
-                                {
-                                "id":100,
-                                "title":"歯医者",
-                                "scheduleDate":"2024-06-25",
-                                "scheduleTime":"14:00:00"
-                                }     
-                                """
-                ))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 100))
                 .andExpect(status().is(404))
                 .equals(new ScheduleNotFoundException("入力したidは存在しません"));
 
