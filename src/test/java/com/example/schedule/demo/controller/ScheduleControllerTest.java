@@ -210,7 +210,6 @@ class ScheduleControllerTest {
     @Test
     void 指定したidが存在しない場合例外を投げること() throws Exception {
         Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
-        Schedule deleteSchedule = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         doThrow(new ScheduleNotFoundException("入力したidは存在しません")).when(scheduleServiceImpl).delete(100);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 100).contentType(MediaType.APPLICATION_JSON).content(
