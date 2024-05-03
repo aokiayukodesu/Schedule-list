@@ -62,8 +62,8 @@ public class ScheduleController {
     }
 
     @DeleteMapping("schedules/delete/{id}")
-    public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id, String title, LocalDate scheduleDate, LocalTime scheduleTime) {
-        scheduleService.delete(id, new Schedule(title, scheduleDate, scheduleTime));
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id) {
+        scheduleService.delete(id);
         Map<String, String> body = Map.of("massage", "delete success");
         return ResponseEntity.ok(body);
     }

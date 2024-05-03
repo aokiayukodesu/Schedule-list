@@ -49,6 +49,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(MockitoExtension.class)
@@ -64,10 +65,6 @@ class ScheduleControllerTest {
 
     @MockBean
     ScheduleServiceImpl scheduleServiceImpl;
-
-    @Mock
-    ScheduleMapper scheduleMapper;
-
 
     @Test
     void findAllメソッドで全てのレコードを取得できる() throws Exception {
@@ -138,12 +135,8 @@ class ScheduleControllerTest {
 
     @Test
     void 指定したidでデータが変更できること() throws Exception {
-        Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         Schedule updateScheduleTime = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(16, 00));
-        when(scheduleServiceImpl.findById(1)).thenReturn(exsintingSchedule);
         Schedule schedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(16, 00));
-
-
         doReturn(schedule).when(scheduleServiceImpl).updateSchedule(1, updateScheduleTime);
 
         String response = mockMvc.perform(MockMvcRequestBuilders.put("/schedules/edit/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(
@@ -170,7 +163,6 @@ class ScheduleControllerTest {
 
     @Test
     void updateメソッドで存在しないidを指定した場合にScheduleNotFoundExceptionを投げること() throws Exception {
-        Schedule exsintingSchedule = new Schedule(1, "歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(14, 00));
         Schedule updateScheduleTime = new Schedule("歯医者", LocalDate.of(2024, 06, 25), LocalTime.of(16, 00));
         when(scheduleServiceImpl.updateSchedule(100, updateScheduleTime)).thenThrow(new ScheduleNotFoundException("入力したidは存在しません"));
 
@@ -188,6 +180,31 @@ class ScheduleControllerTest {
                 .equals(new ScheduleNotFoundException("入力したidは存在しません"));
 
         verify(scheduleServiceImpl).updateSchedule(100, updateScheduleTime);
+    }
+
+
+    @Test
+    void 指定したidでデータが削除できること() throws Exception {
+        doNothing().when(scheduleServiceImpl).delete(1);
+
+        String response = mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 1))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        JSONAssert.assertEquals("""
+                { 
+                "massage" : "delete success"
+                } 
+                """, response, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    void 指定したidが存在しない場合例外を投げること() throws Exception {
+        doThrow(new ScheduleNotFoundException("入力したidは存在しません")).when(scheduleServiceImpl).delete(100);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/{id}", 100))
+                .andExpect(status().is(404))
+                .equals(new ScheduleNotFoundException("入力したidは存在しません"));
+
     }
 }
 

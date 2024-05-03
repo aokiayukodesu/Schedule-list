@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,5 +33,5 @@ public interface ScheduleMapper {
     public void update(@Param("id") Integer id, @Param("schedule") Schedule schedule);
 
     @Delete("delete from schedules where id = #{id}")
-    public void delete(@Param("id") Integer id, @Param("schedule") Schedule schedule);
+    public void delete(@Param("id") Integer id);
 }
