@@ -1,10 +1,11 @@
 cacheConnection: false
 cacheTableNames: false
 properties:
-schema: schedule_list
+  schema: schedule_list
 caseInsensitiveStrategy: LOWERCASE
 connectionConfig:
-url: "jdbc:mysql://localhost:3306/schedule_list"
-user: "user"
-password: "password"
+  url: "jdbc:mysql://localhost:3306/schedule_list"
+  user: "user"
+  password: "password"
+
 

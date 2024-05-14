@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -18,7 +20,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 @DBRider
 @MybatisTest
