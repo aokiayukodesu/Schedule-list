@@ -18,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DBRider
 @MybatisTest
@@ -39,6 +41,16 @@ class ScheduleMapperTest {
                 .hasSize(2)
                 .contains(new Schedule(1, "親知らず", LocalDate.of(2024, 05, 15), LocalTime.of(10, 00, 00)),
                         new Schedule(2, "ストレンジャーシングス新シーズン配信", LocalDate.of(2024, 05, 27), LocalTime.of(10, 00, 00))
+                );
+    }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @Transactional
+    void 存在するidを指定した場合に情報が取得できること() {
+        Optional<Schedule> schedule = scheduleMapper.findById(1);
+        assertThat(schedule)
+                .contains(new Schedule(1, "親知らず", LocalDate.of(2024, 05, 15), LocalTime.of(10, 00, 00))
                 );
     }
 }
