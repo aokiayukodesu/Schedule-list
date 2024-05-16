@@ -32,6 +32,7 @@ dependencies {
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
     testImplementation 'com.github.database-rider:rider-spring:1.41.0'
 
+
 }
 
 tasks.withType(Test) {
@@ -41,5 +42,5 @@ tasks.withType(Test) {
 tasks.named('test') {
     useJUnitPlatform()
 
-    
+
 }
