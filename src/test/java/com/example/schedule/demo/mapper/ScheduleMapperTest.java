@@ -46,5 +46,13 @@ class ScheduleMapperTest {
                 .contains(new Schedule(1, "親知らず", LocalDate.of(2024, 05, 15),
                         LocalTime.of(10, 00, 00)));
     }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @Transactional
+    void 存在しないidを指定した場合に空を返す() {
+        Optional<Schedule> schedule = scheduleMapper.findById(100);
+        assertThat(schedule).isEmpty();
+    }
 }
 
