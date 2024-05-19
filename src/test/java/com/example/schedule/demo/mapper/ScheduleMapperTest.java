@@ -2,6 +2,7 @@ package com.example.schedule.demo.mapper;
 
 import com.example.schedule.demo.entity.Schedule;
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -53,6 +54,16 @@ class ScheduleMapperTest {
     void 存在しないidを指定した場合に空を返す() {
         Optional<Schedule> schedule = scheduleMapper.findById(100);
         assertThat(schedule).isEmpty();
+    }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @ExpectedDataSet(value = "datasets/addSchedules.yml", ignoreCols = "id")
+    @Transactional
+    void 情報が登録されること() {
+        Schedule schedule = new Schedule("一時保育", LocalDate.of(2024, 05, 21),
+                LocalTime.of(10, 00, 00));
+        scheduleMapper.createTable(schedule);
     }
 }
 
