@@ -1,0 +1,17 @@
+schedules:
+  - id: 1
+    title: "親知らず"
+    scheduleDate: "2024-05-15"
+    scheduleTime: "10:00:00"
+  - id: 2
+    title: "ストレンジャーシングス新シーズン配信"
+    scheduleDate: "2024-05-27"
+    scheduleTime: "10:00:00"
+  - id: 3
+    title: "一時保育"
+    scheduleDate: "2024-05-21"
+    scheduleTime: "10:00:00"
+  - id: 4
+    title: "一時保育"
+    scheduleDate: "2025-05-21"
+    scheduleTime: "10:00:00"

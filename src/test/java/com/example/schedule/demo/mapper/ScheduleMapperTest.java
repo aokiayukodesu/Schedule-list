@@ -64,6 +64,19 @@ class ScheduleMapperTest {
         Schedule schedule = new Schedule("一時保育", LocalDate.of(2024, 05, 21),
                 LocalTime.of(10, 00, 00));
         scheduleMapper.createTable(schedule);
+        assertThat(schedule).isNotNull();
     }
-}
 
+    //@Test
+    //@DataSet(value = "datasets/schedules.yml")
+    //@ExpectedDataSet(value = "datasets/Schedules.yml")
+    //@Transactional
+    //void 予定名と予定日時が登録された場合にidが補完されること() {
+    //  Schedule schedule = new Schedule("一時保育", LocalDate.of(2025, 05, 21),
+    //        LocalTime.of(10, 00, 00));
+    //scheduleMapper.createTable(schedule);
+    //assertThat(schedule).isNotNull();
+
+    //}
+}
+    
