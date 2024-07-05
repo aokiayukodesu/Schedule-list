@@ -64,7 +64,6 @@ class ScheduleMapperTest {
         Schedule schedule = new Schedule("一時保育", LocalDate.of(2024, 05, 21),
                 LocalTime.of(10, 00, 00));
         scheduleMapper.createTable(schedule);
-        assertThat(schedule).isNotNull();
     }
 }
     
