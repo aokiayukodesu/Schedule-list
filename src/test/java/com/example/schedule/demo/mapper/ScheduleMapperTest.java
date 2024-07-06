@@ -77,5 +77,15 @@ class ScheduleMapperTest {
         scheduleMapper.create(checkId);
         Assertions.assertNotNull(checkId);
     }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @ExpectedDataSet(value = "datasets/updateSchedules.yml")
+    @Transactional
+    void 指定したidが存在した場合そのidの情報を変更する() {
+        Schedule requestedSchedule = new Schedule("親知らず", LocalDate.of(2024, 07, 17),
+                LocalTime.of(13, 00, 00));
+        scheduleMapper.update(1, requestedSchedule);
+    }
 }
     
