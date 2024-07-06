@@ -27,7 +27,7 @@ public interface ScheduleMapper {
 
     @Insert("insert into schedules(title,scheduleDate,scheduleTime) values (#{title},#{scheduleDate},#{scheduleTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    public void createTable(Schedule schedule);
+    public void create(Schedule schedule);
 
     @Update("update schedules set title = #{schedule.title}, scheduleDate = #{schedule.scheduleDate}, ScheduleTime = #{schedule.scheduleTime}  where id = #{id}")
     public void update(@Param("id") Integer id, @Param("schedule") Schedule schedule);

@@ -76,7 +76,7 @@ class ScheduleServiceImplTest {
     @Test
     void scheduleに渡した値が登録されていること() {
         Schedule schedule = new Schedule("ストレンジャーシングス配信日", LocalDate.of(2024, 05, 27), LocalTime.of(12, 00));
-        doNothing().when(scheduleMapper).createTable(schedule);
+        doNothing().when(scheduleMapper).create(schedule);
 
         Schedule createSchedule = scheduleServiceImpl.createTable("ストレンジャーシングス配信日", LocalDate.of(2024, 05, 27), LocalTime.of(12, 00));
         assertThat(createSchedule).isEqualTo(schedule);

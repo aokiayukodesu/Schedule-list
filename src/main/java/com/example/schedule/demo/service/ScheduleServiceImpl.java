@@ -37,7 +37,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Schedule createTable(String title, LocalDate scheduleDate, LocalTime scheduleTime) {
         Schedule schedule = new Schedule(title, scheduleDate, scheduleTime);
-        scheduleMapper.createTable(schedule);
+        scheduleMapper.create(schedule);
         return schedule;
     }
 
