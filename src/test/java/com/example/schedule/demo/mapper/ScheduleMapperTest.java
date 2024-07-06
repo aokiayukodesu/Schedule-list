@@ -64,7 +64,7 @@ class ScheduleMapperTest {
     void 予定名と予定日時の情報が登録されること() {
         Schedule schedule = new Schedule("一時保育", LocalDate.of(2024, 05, 21),
                 LocalTime.of(10, 00, 00));
-        scheduleMapper.createTable(schedule);
+        scheduleMapper.create(schedule);
     }
 
     @Test
@@ -74,7 +74,7 @@ class ScheduleMapperTest {
     void 予定名と予定日時の情報が登録された場合idが補完されること() {
         Schedule checkId = new Schedule("一時保育", LocalDate.of(2025, 05, 21),
                 LocalTime.of(10, 00, 00));
-        scheduleMapper.createTable(checkId);
+        scheduleMapper.create(checkId);
         Assertions.assertNotNull(checkId);
     }
 }
