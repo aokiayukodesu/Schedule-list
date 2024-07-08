@@ -87,5 +87,14 @@ class ScheduleMapperTest {
                 LocalTime.of(13, 00, 00));
         scheduleMapper.update(1, requestedSchedule);
     }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @ExpectedDataSet(value = "datasets/deleteSchedules.yml")
+    @Transactional
+    void 指定したidが存在した場合そのidの情報を削除する() {
+        scheduleMapper.delete(1);
+    }
+
 }
     
