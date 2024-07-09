@@ -47,5 +47,23 @@ public class IntegrationTest {
                                 """
                 ));
     }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @Transactional
+    void 指定されたidの情報を取得できること() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/schedules/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
+                                 {
+                                  "id":1,
+                                   "title":"親知らず",
+                                   "scheduleDate":"2024-05-15",
+                                   "scheduleTime":"10:00:00"
+                                }                                
+                                 """
+                ));
+    }
 }
 
