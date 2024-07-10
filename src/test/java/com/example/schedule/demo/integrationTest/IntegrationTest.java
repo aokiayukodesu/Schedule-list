@@ -51,7 +51,7 @@ public class IntegrationTest {
     @Test
     @DataSet(value = "datasets/schedules.yml")
     @Transactional
-    void 指定されたidの情報を取得できること() throws Exception {
+    void 該当するIDの予定を一件取得できること() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/schedules/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
