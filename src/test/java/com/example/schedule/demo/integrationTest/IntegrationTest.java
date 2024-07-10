@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.ZonedDateTime;
 
 
 @SpringBootTest
@@ -65,5 +68,18 @@ public class IntegrationTest {
                                  """
                 ));
     }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @Transactional
+    void 指定したidが存在しない場合404エラーを返すこと() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/schedules/100"))
+                .andExpect(MockMvcResultMatchers.status().is(404))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error").value("Not Found"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("入力したidは存在しません"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/schedules/100"));
+    }
+
 }
 
