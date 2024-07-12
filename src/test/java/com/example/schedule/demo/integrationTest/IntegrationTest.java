@@ -109,5 +109,27 @@ public class IntegrationTest {
                         """));
     }
 
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @ExpectedDataSet(value = "datasets/updateSchedules.yml")
+    @Transactional
+    void 該当するIDの予定情報を更新する() throws Exception {
+        String requestBody = """
+                   {                
+                   "title": "親知らず",
+                   "scheduleDate": "2024-07-17",
+                   "scheduleTime": "13:00:00"
+                   }                                                               
+                """;
+        mockMvc.perform(MockMvcRequestBuilders.put("/schedules/edit/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json("""
+                        { 
+                        "massage" : "update ok" 
+                        } 
+                        """));
+    }
 }
 
