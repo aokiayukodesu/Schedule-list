@@ -166,5 +166,17 @@ public class IntegrationTest {
                         } 
                         """));
     }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @Transactional
+    void deleteリクエストで指定したidが存在しない場合404エラーを返すこと() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/100"))
+                .andExpect(MockMvcResultMatchers.status().is(404))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error").value("Not Found"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("入力したidは存在しません"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/schedules/delete/100"));
+    }
 }
 
