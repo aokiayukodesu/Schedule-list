@@ -131,5 +131,26 @@ public class IntegrationTest {
                         } 
                         """));
     }
+
+    @Test
+    @DataSet(value = "datasets/schedules.yml")
+    @Transactional
+    void updateリクエストで指定したidが存在しない場合404エラーを返すこと() throws Exception {
+        String requestBody = """
+                {
+                "title": "親知らず",
+                "scheduleDate": "2024-07-17",
+                "scheduleTime": "13:00:00"
+                }
+                """;
+        mockMvc.perform(MockMvcRequestBuilders.put("/schedules/edit/100")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().is(404))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.timestamp").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error").value("Not Found"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("入力したidは存在しません"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.path").value("/schedules/edit/100"));
+    }
 }
 
