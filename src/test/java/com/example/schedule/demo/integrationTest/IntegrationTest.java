@@ -161,9 +161,9 @@ public class IntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/schedules/delete/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json("""
-                        { 
-                        "massage" : "delete success" 
-                        } 
+                        {
+                          	"massage": "delete success"
+                        }
                         """));
     }
 
